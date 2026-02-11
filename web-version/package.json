@@ -1,19 +1,34 @@
 {
   "name": "progress_bar_clicker_game_html",
-  "version": "1.0.0",
-  "description": "",
-  "main": "/index.html",
+  "version": "0.0.01-Pre-Alpha",
+  "description": "A simple clicker game where you are given a progress bar and a button to click on. You need to click the button to fill the progress bar. After the progress bar is filled, you receive a Progress Point. You can use the Progress Points to upgrade your clicker, Maximum Progress amount, fill speed, and more.",
+  "main": "src/game/menus/main/html/index.html",
   "scripts": {
-    "start": "
+    "start": "src/game/menus/main/scripts/main_menu.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
+  "keywords": [
+    "progress bar clicker",
+    "game",
+    "html",
+    "javascript",
+    "css",
+    "typescript",
+    "react",
+    "react native",
+    "idle",
+    "clicker"
+  ],
+  "author": "Dramora9879",
+  "license": "All Rights Reserved",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DramoraFramei/Progress-Bar-Clicker/tree/main/web-version"
+  },
+  "devDependencies": {
     "@fidget/idle-engine": "^1.0.0",
     "@lingui/react": "^5.9.1",
     "conf-cfg-ini": "^1.2.3",
-    "expo-constants": "^18.0.13",
+    "expo-constants": "^55.0.4",
     "react-native-clicker-hook": "^1.0.0"
   }
 }
