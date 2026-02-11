@@ -2,10 +2,13 @@
 """
 Progress Bar Clicker App
 """
+import os
 import tkinter as tk
 from tkinter import ttk
-from .imports import SCREENS_FILES, MENUS_FILES, FILE_CHECK_FILE, SLOTS_FOLDERS, SLOTS_FILES_NAME
+
 from . import imports
+from .imports import (FILE_CHECK_FILE, MENUS_FILES, SCREENS_FILES,
+                      SLOTS_FILES_NAME, SLOTS_FOLDERS)
 
 
 class ProgressBarClickerApp(tk.Tk):
@@ -90,14 +93,15 @@ class ProgressBarClickerApp(tk.Tk):
         # Run the file check file with the slots folders and return the result
         # of the file check file as a boolean
         file_check_result = FILE_CHECK_FILE(
-            list(SLOTS_FOLDERS.values()), slots_exists.get(list(SLOTS_FOLDERS.keys()), []))
+            list(SLOTS_FOLDERS.values()), list(slots_exists.keys()))
         # If the file check finds a file in any slot folder, set the result to
         # True and return the result along with the slot folders with a file in
         # them as a list that includes the file name and timestamp
         if file_check_result.bool():
             result = True
-            slot_folders = [os.path.join(SLOTS_FOLDERS[slot_name], SLOTS_FILES_NAME)
-                            for slot_name in slots_exists.keys() if slots_exists[slot_name] == True]
+            slot_folders = [os.path.join(slot_folder, SLOTS_FILES_NAME)
+                            for slot_folder in list(SLOTS_FOLDERS.values())
+                            for slot_name in list(slots_exists.keys()) if slots_exists[slot_name] is True]
             return result, slot_folders
         else:
             result = False
