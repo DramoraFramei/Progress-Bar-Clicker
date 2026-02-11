@@ -1,0 +1,11 @@
+/.vscode
+/python-version/.cspell
+/python-version/.vscode
+/web-version/.cspell
+/web-version/.vscode
+/web-version/node_modules
+/web-version/cspell.json
+/.clinerules
+/.cursor
+/.roo
+/output

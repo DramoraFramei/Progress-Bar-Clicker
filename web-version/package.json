@@ -1,0 +1,19 @@
+{
+  "name": "progress_bar_clicker_game_html",
+  "version": "1.0.0",
+  "description": "",
+  "main": "/index.html",
+  "scripts": {
+    "start": "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fidget/idle-engine": "^1.0.0",
+    "@lingui/react": "^5.9.1",
+    "conf-cfg-ini": "^1.2.3",
+    "expo-constants": "^18.0.13",
+    "react-native-clicker-hook": "^1.0.0"
+  }
+}
