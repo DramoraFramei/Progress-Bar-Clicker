@@ -4,8 +4,17 @@
 Main menu
 """
 
+import os
 import tkinter as tk
 from tkinter import ttk
+
+try:
+    from src.game.app.imports import CHECK_SAVE_FILE_COMMAND, APP_FILE
+except ImportError as e:
+    raise ImportError(
+        "Could not import CHECK_SAVE_FILE_COMMAND or APP_FILE") from e
+
+ProgressBarClickerApp = APP_FILE
 
 
 class MainMenu(tk.Frame):
@@ -13,12 +22,13 @@ class MainMenu(tk.Frame):
     Main menu
     """
 
-    def __init__(self, parent: "ProgressBarClickerApp"):
+    def __init__(self, parent: ProgressBarClickerApp):
         """
         Initialize the main menu
         """
         super().__init__(parent)
         self.parent = parent
+        self.load_button_command_enabled()
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
         self.title = tk.Label(self, text="Main Menu", font=("Arial", 20))
@@ -54,18 +64,23 @@ class MainMenu(tk.Frame):
         """
         self.parent.switch_menu("save_menu")
 
+    def load_button_command_enabled(self):
+        """
+        Command to be executed when the main menu is loaded and the load button is enabled
+        """
+        result, _ = CHECK_SAVE_FILE_COMMAND(slots_exists=list(
+            self.parent.slots_exists.keys()), result=bool)
+        # If a save file exists, enable the load button
+        if result.bool():
+            self.load_button.config(state="normal")
+        else:
+            self.load_button.config(state="disabled")
+
     def load_button_command(self):
         """
         Command to be executed when the load button is clicked
         """
-        # TODO: Implement save file checking to determine if a save file exists
-        # and in turn enable the load button
-        self.parent.check_save_file()
-        # if self.save_file_exists:
-        #     self.load_button.config(state="normal")
-        # else:
-        #     self.load_button.config(state="disabled")
-        pass
+        self.parent.switch_menu("load_menu")
 
     def options_button_command(self):
         """
@@ -84,3 +99,17 @@ class MainMenu(tk.Frame):
         Command to be executed when the quit button is clicked
         """
         self.parent.switch_menu("quit_menu")
+
+
+def main():
+    """
+    Main function to run the Main Menu
+    """
+    parent = ProgressBarClickerApp(title="Main Menu")
+    main_menu = MainMenu(parent)
+    main_menu.pack(fill="both", expand=True)
+    parent.run()
+
+
+if __name__ == "__main__":
+    main()

@@ -7,6 +7,7 @@ Clicker App in order to avoid circular imports.
 
 import datetime
 import os
+
 TIMESTAMP = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 ROOT_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))).replace("\\", "/")
