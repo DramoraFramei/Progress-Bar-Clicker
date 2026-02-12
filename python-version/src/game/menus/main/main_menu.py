@@ -4,10 +4,14 @@
 Main menu
 """
 
+from __future__ import annotations
+
 import tkinter as tk
 from tkinter import ttk
+from typing import TYPE_CHECKING
 
-from ...app.imports import APP_FILE as ProgressBarClickerApp, CHECK_SAVE_FILE_COMMAND
+if TYPE_CHECKING:
+    from ...app.imports import APP_FILE as ProgressBarClickerApp
 
 
 class MainMenu(tk.Frame):
@@ -15,13 +19,12 @@ class MainMenu(tk.Frame):
     Main menu
     """
 
-    def __init__(self, parent: ProgressBarClickerApp):
+    def __init__(self, parent: "ProgressBarClickerApp"):
         """
         Initialize the main menu
         """
         super().__init__(parent)
         self.parent = parent
-        self.load_button_command_enabled()
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
         self.title = tk.Label(self, text="Main Menu", font=("Arial", 20))
@@ -33,8 +36,9 @@ class MainMenu(tk.Frame):
             self, text="Save", command=self.save_button_command, font=("Arial", 16))
         self.save_button.grid(row=2, column=0, sticky="nsew")
         self.load_button = tk.Button(self, text="Load", command=self.load_button_command, font=(
-            "Arial", 16), default="disabled")
+            "Arial", 16), state="disabled")
         self.load_button.grid(row=3, column=0, sticky="nsew")
+        self.load_button_command_enabled()
         self.options_button = tk.Button(
             self, text="Options", command=self.options_button_command, font=("Arial", 16))
         self.options_button.grid(row=4, column=0, sticky="nsew")
@@ -61,10 +65,13 @@ class MainMenu(tk.Frame):
         """
         Command to be executed when the main menu is loaded and the load button is enabled
         """
-        result, _ = CHECK_SAVE_FILE_COMMAND(slots_exists=list(
-            self.parent.slots_exists.keys()), result=bool)
-        # If a save file exists, enable the load button
-        if result.bool():
+        slots_exists = getattr(self.parent, "slots_exists", {})
+        result = self.parent.check_save_file(slots_exists=slots_exists, result=False)
+        if isinstance(result, tuple):
+            result = result[0]
+        if hasattr(result, "bool") and result.bool():
+            self.load_button.config(state="normal")
+        elif result:
             self.load_button.config(state="normal")
         else:
             self.load_button.config(state="disabled")
@@ -98,6 +105,8 @@ def main():
     """
     Main function to run the Main Menu
     """
+    from ...app.imports import APP_FILE as ProgressBarClickerApp
+
     parent = ProgressBarClickerApp(title="Main Menu")
     main_menu = MainMenu(parent)
     main_menu.pack(fill="both", expand=True)

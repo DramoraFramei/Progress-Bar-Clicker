@@ -1,5 +1,10 @@
 # Auto-generated __init__.py
 
+import tkinter as tk
 
-__all__ = [
-]
+
+class LoadMenu(tk.Frame):
+    """Placeholder for load menu."""
+
+
+__all__ = ["LoadMenu"]

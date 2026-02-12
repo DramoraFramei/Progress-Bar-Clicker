@@ -1,5 +1,10 @@
 # Auto-generated __init__.py
 
+import tkinter as tk
 
-__all__ = [
-]
+
+class SaveMenu(tk.Frame):
+    """Placeholder for save menu."""
+
+
+__all__ = ["SaveMenu"]

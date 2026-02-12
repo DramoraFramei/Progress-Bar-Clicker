@@ -1,5 +1,10 @@
 # Auto-generated __init__.py
 
+import tkinter as tk
 
-__all__ = [
-]
+
+class PauseMenu(tk.Frame):
+    """Placeholder for pause menu."""
+
+
+__all__ = ["PauseMenu"]

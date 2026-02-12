@@ -3,16 +3,30 @@
 Progress Bar Clicker App
 """
 import os
+import sys
 import tkinter as tk
 from tkinter import ttk
 
-from .imports import (
-    FILE_CHECK_FILE,
-    MENUS_FILES,
-    SCREENS_FILES,
-    SLOTS_FILES_NAME,
-    SLOTS_FOLDERS,
-)
+try:
+    from .imports import (
+        FILE_CHECK_FILE,
+        MENUS_FILES,
+        SCREENS_FILES,
+        SLOTS_FILES_NAME,
+        SLOTS_FOLDERS,
+    )
+except ImportError:
+    _root = os.path.dirname(os.path.dirname(os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__)))))
+    if _root not in sys.path:
+        sys.path.insert(0, _root)
+    from src.game.app.imports import (
+        FILE_CHECK_FILE,
+        MENUS_FILES,
+        SCREENS_FILES,
+        SLOTS_FILES_NAME,
+        SLOTS_FOLDERS,
+    )
 
 
 class ProgressBarClickerApp(tk.Tk):
@@ -28,21 +42,18 @@ class ProgressBarClickerApp(tk.Tk):
         self.title(title)
         self.geometry("1920x1080")
         self.resizable(True, True)
-        self.main_game_screen = SCREENS_FILES["main_game_screen"](
-            tk.Frame(self))
-        self.quit_game_screen = SCREENS_FILES["quit_game_screen"](
-            tk.Frame(self))
-        self.upgrades_screen = SCREENS_FILES["upgrades_screen"](tk.Frame(self))
-        self.rebirth_screen = SCREENS_FILES["rebirth_screen"](tk.Frame(self))
-        self.prestige_screen = SCREENS_FILES["prestige_screen"](tk.Frame(self))
-        self.reincarnation_screen = SCREENS_FILES["reincarnation_screen"](
-            tk.Frame(self))
-        self.main_menu = MENUS_FILES["main_menu"](tk.Frame(self))
-        self.save_menu = MENUS_FILES["save_menu"](tk.Frame(self))
-        self.load_menu = MENUS_FILES["load_menu"](tk.Frame(self))
-        self.options_menu = MENUS_FILES["options_menu"](tk.Frame(self))
-        self.credits_menu = MENUS_FILES["credits_menu"](tk.Frame(self))
-        self.pause_menu = MENUS_FILES["pause_menu"](tk.Frame(self))
+        self.main_game_screen = SCREENS_FILES["main_game_screen"](self)
+        self.quit_game_screen = SCREENS_FILES["quit_game_screen"](self)
+        self.upgrades_screen = SCREENS_FILES["upgrades_screen"](self)
+        self.rebirth_screen = SCREENS_FILES["rebirth_screen"](self)
+        self.prestige_screen = SCREENS_FILES["prestige_screen"](self)
+        self.reincarnation_screen = SCREENS_FILES["reincarnation_screen"](self)
+        self.main_menu = MENUS_FILES["main_menu"](self)
+        self.save_menu = MENUS_FILES["save_menu"](self)
+        self.load_menu = MENUS_FILES["load_menu"](self)
+        self.options_menu = MENUS_FILES["options_menu"](self)
+        self.credits_menu = MENUS_FILES["credits_menu"](self)
+        self.pause_menu = MENUS_FILES["pause_menu"](self)
         self.main_game_screen.pack(fill="both", expand=True)
 
     def switch_screen(self, screen_name: str):
@@ -130,6 +141,13 @@ def main():
     app = ProgressBarClickerApp()
     app.run()
 
+
+# Module-level exports for app package
+switch_screen = ProgressBarClickerApp.switch_screen
+switch_menu = ProgressBarClickerApp.switch_menu
+check_save_file = ProgressBarClickerApp.check_save_file
+run = ProgressBarClickerApp.run
+quit_game = ProgressBarClickerApp.quit_game
 
 if __name__ == "__main__":
     main()
