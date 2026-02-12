@@ -6,9 +6,15 @@ import os
 import tkinter as tk
 from tkinter import ttk
 
-from . import imports
-from .imports import (FILE_CHECK_FILE, MENUS_FILES, SCREENS_FILES,
-                      SLOTS_FILES_NAME, SLOTS_FOLDERS)
+IMPORTS = getattr(
+    __import__(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))).replace(
+        "\\", "/").split("/")[-1]), "imports.py")
+FILE_CHECK_FILE = IMPORTS["FILE_CHECK_FILE"]
+MENUS_FILES = IMPORTS["MENUS_FILES"]
+SCREENS_FILES = IMPORTS["SCREENS_FILES"]
+SLOTS_FILES_NAME = IMPORTS["SLOTS_FILES_NAME"]
+SLOTS_FOLDERS = IMPORTS["SLOTS_FOLDERS"]
+APP_FILE = IMPORTS["APP_FILE"]
 
 
 class ProgressBarClickerApp(tk.Tk):
@@ -99,13 +105,12 @@ class ProgressBarClickerApp(tk.Tk):
         # them as a list that includes the file name and timestamp
         if file_check_result.bool():
             result = True
-            slot_folders = [os.path.join(slot_folder, SLOTS_FILES_NAME)
-                            for slot_folder in list(SLOTS_FOLDERS.values())
-                            for slot_name in list(slots_exists.keys()) if slots_exists[slot_name] is True]
+            slot_folders = [os.path.join(slot_folder, SLOTS_FILES_NAME) for slot_folder in list(
+                SLOTS_FOLDERS.values()) for slot_name in list(slots_exists.keys()) if slots_exists[slot_name] is True]
             return result, slot_folders
         else:
             result = False
-            return result
+        return result
 
     def run(self):
         """
