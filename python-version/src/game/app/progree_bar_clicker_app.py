@@ -6,15 +6,13 @@ import os
 import tkinter as tk
 from tkinter import ttk
 
-IMPORTS = getattr(
-    __import__(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))).replace(
-        "\\", "/").split("/")[-1]), "imports.py")
-FILE_CHECK_FILE = IMPORTS["FILE_CHECK_FILE"]
-MENUS_FILES = IMPORTS["MENUS_FILES"]
-SCREENS_FILES = IMPORTS["SCREENS_FILES"]
-SLOTS_FILES_NAME = IMPORTS["SLOTS_FILES_NAME"]
-SLOTS_FOLDERS = IMPORTS["SLOTS_FOLDERS"]
-APP_FILE = IMPORTS["APP_FILE"]
+from .imports import (
+    FILE_CHECK_FILE,
+    MENUS_FILES,
+    SCREENS_FILES,
+    SLOTS_FILES_NAME,
+    SLOTS_FOLDERS,
+)
 
 
 class ProgressBarClickerApp(tk.Tk):

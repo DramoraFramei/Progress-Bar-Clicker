@@ -1,19 +1,13 @@
-# pylint: disable=line-too-long, unused-import, global-statement
+# pylint: disable=line-too-long, unused-import, global-statement, too-many-instance-attributes
 # type: ignore[arg-type]
 """
 Main menu
 """
 
-import os
 import tkinter as tk
 from tkinter import ttk
 
-
-IMPORTS = getattr(
-    __import__(os.path.dirname(os.path.dirname(
-        os.path.dirname(os.path.abspath(__file__)))).replace("\\", "/").split("/")[-1], "imports.py"))
-ProgressBarClickerApp = IMPORTS["APP_FILE"]
-CHECK_SAVE_FILE_COMMAND = IMPORTS["CHECK_SAVE_FILE_COMMAND"]
+from ...app.imports import APP_FILE as ProgressBarClickerApp, CHECK_SAVE_FILE_COMMAND
 
 
 class MainMenu(tk.Frame):
