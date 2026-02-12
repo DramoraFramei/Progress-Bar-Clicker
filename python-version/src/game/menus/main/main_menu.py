@@ -8,13 +8,12 @@ import os
 import tkinter as tk
 from tkinter import ttk
 
-try:
-    from src.game.app.imports import CHECK_SAVE_FILE_COMMAND, APP_FILE
-except ImportError as e:
-    raise ImportError(
-        "Could not import CHECK_SAVE_FILE_COMMAND or APP_FILE") from e
 
-ProgressBarClickerApp = APP_FILE
+IMPORTS = getattr(
+    __import__(os.path.dirname(os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__)))).replace("\\", "/").split("/")[-1], "imports.py"))
+ProgressBarClickerApp = IMPORTS["APP_FILE"]
+CHECK_SAVE_FILE_COMMAND = IMPORTS["CHECK_SAVE_FILE_COMMAND"]
 
 
 class MainMenu(tk.Frame):
