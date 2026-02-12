@@ -1,4 +1,5 @@
 # pylint: disable=line-too-long,invalid-name,unused-import
+"""File checks."""
 
 import json
 import os
